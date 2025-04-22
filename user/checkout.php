@@ -340,5 +340,3 @@ function placeOrder($user_id, $address, $city, $state, $pincode, $country, $paym
     <?php endif; ?>
 </body>
 </html>
-?>
-?>

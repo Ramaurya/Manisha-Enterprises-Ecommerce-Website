@@ -139,7 +139,7 @@ if(isset($_SESSION["user"])){
     echo "
     <script>
     alert('Please login to add to cart');
-    window.location.href = 'login.php'; 
+    window.location.href = 'form.php/login.php'; 
     </script>
     ";
 }

@@ -83,7 +83,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="about.php" class="text-gray-400 hover:text-indigo-500 transition duration-300 flex items-center">
+                            <a href="aboutus.php" class="text-gray-400 hover:text-indigo-500 transition duration-300 flex items-center">
                                 <i class="fas fa-chevron-right text-xs mr-2 text-indigo-500"></i> About Us
                             </a>
                         </li>

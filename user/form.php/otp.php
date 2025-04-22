@@ -83,7 +83,7 @@ if(isset($_POST['resend'])) {
                         <input type="number" name="otp" class="w-full h-12 text-center text-xl font-semibold rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200 outline-none" 
                             placeholder="Enter OTP" required maxlength="6" pattern="\d{6}">
                     </div>
-                    <input type="hidden" name="phone" value="<?php echo $_SESSION['phone']; ?>">
+                    <input type="hidden" name="phone" value="<?php echo $_SESSION['reset_mobile']; ?>">
                 </div>
 
                 <!-- Timer and Resend -->

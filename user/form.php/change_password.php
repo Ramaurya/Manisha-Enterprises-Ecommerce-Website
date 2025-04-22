@@ -8,7 +8,7 @@ if(!isset($_SESSION['reset_mobile'])) {
 if(isset($_POST['change_password'])) {
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
-    $phone = $_SESSION['phone'];
+    $phone = $_SESSION['reset_mobile'];
 
     // Validate passwords match
     if($new_password !== $confirm_password) {
@@ -27,6 +27,10 @@ if(isset($_POST['change_password'])) {
         $stmt->bind_param("sss", $new_password, $new_password, $phone);
         
         if($stmt->execute()) {
+            // Clear session variables
+            unset($_SESSION['reset_mobile']);
+            unset($_SESSION['OTP']);
+            
             // Password updated successfully
             echo "<script>
                 alert('Password changed successfully!');
@@ -187,6 +191,3 @@ if(isset($_POST['change_password'])) {
     </script>
 </body>
 </html>
-<?php
-session_destroy();
-?>

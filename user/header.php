@@ -43,7 +43,7 @@ if (isset($_SESSION["user"])) {
             bottom: 0;
             left: 0;
             background-color: #818cf8;
-            transition: width 0.3s ease;
+            transition: width 0.9s ease;
         }
         .nav-link:hover::after {
             width: 100%;
@@ -132,10 +132,16 @@ if (isset($_SESSION["user"])) {
                 <!-- Search Bar -->
                 <div class="hidden md:flex flex-1 max-w-xl mx-8">
                     <div class="relative w-full">
-                        <input type="text" placeholder="Search for products..." class="w-full py-2 px-4 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                        <button class="absolute right-0 top-0 h-full px-4 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700 transition duration-300">
+                        <input type="text" id="searchInput" placeholder="Search for products..." 
+                               class="w-full py-2 px-4 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        <button onclick="performSearch()" class="absolute right-0 top-0 h-full px-4 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700 transition duration-300">
                             <i class="fas fa-search"></i>
                         </button>
+                        <div id="searchResults" class="absolute top-full left-0 w-full mt-2 bg-white rounded-lg shadow-lg z-50 hidden">
+                            <div class="max-h-96 overflow-y-auto">
+                                <!-- Search results will be populated here -->
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -160,22 +166,22 @@ if (isset($_SESSION["user"])) {
                             <?php endif; ?>
                             <i class="fas fa-chevron-down ml-1 text-xs"></i>
                         </a>
-                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden group-hover:block">
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">
                             <?php if(isset($_SESSION["user"])): ?>
-                                <a href="profile.php" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                                <a href="profile.php" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition duration-150">
                                     <i class="fas fa-user-circle mr-2"></i> My Profile
                                 </a>
-                                <a href="vieworder.php" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                                <a href="vieworder.php" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition duration-150">
                                     <i class="fas fa-box mr-2"></i> My Orders
                                 </a>
-                                <a href="form.php/logout.php" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                                <a href="form.php/logout.php" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition duration-150">
                                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
                                 </a>
                             <?php else: ?>
-                                <a href="form.php/login.php" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                                <a href="form.php/login.php" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition duration-150">
                                     <i class="fas fa-sign-in-alt mr-2"></i> Login
                                 </a>
-                                <a href="form.php/register.php" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600">
+                                <a href="form.php/register.php" class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition duration-150">
                                     <i class="fas fa-user-plus mr-2"></i> Register
                                 </a>
                             <?php endif; ?>
@@ -272,7 +278,69 @@ if (isset($_SESSION["user"])) {
         });
     </script>
 
-    
+    <script>
+    // Add this script at the end of the file, before </body>
+    let searchTimeout;
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        const query = this.value.trim();
+        
+        if (query.length >= 2) {
+            searchTimeout = setTimeout(() => {
+                fetch(`search_handler.php?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(products => {
+                        displaySearchResults(products);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }, 300);
+        } else {
+            searchResults.classList.add('hidden');
+        }
+    });
+
+    function displaySearchResults(products) {
+        const resultsContainer = searchResults.querySelector('.max-h-96');
+        resultsContainer.innerHTML = '';
+        
+        if (products.length === 0) {
+            resultsContainer.innerHTML = '<div class="p-4 text-gray-500">No products found</div>';
+        } else {
+            products.forEach(product => {
+                const productElement = document.createElement('a');
+                productElement.href = `product_details.php?id=${product.id}`;
+                productElement.className = 'flex items-center p-4 hover:bg-gray-50 border-b border-gray-100';
+                productElement.innerHTML = `
+                    <img src="${product.productimage}" alt="${product.productname}" class="w-16 h-16 object-cover rounded">
+                    <div class="ml-4">
+                        <h3 class="text-gray-900 font-medium">${product.productname}</h3>
+                        <p class="text-indigo-600 font-semibold">₹${product.productprice}</p>
+                    </div>
+                `;
+                resultsContainer.appendChild(productElement);
+            });
+        }
+        
+        searchResults.classList.remove('hidden');
+    }
+
+    function performSearch() {
+        const query = searchInput.value.trim();
+        if (query.length >= 2) {
+            window.location.href = `search_results.php?query=${encodeURIComponent(query)}`;
+        }
+    }
+
+    // Close search results when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!searchResults.contains(event.target) && event.target !== searchInput) {
+            searchResults.classList.add('hidden');
+        }
+    });
+    </script>
 
     <!-- Footer -->
     
