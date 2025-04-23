@@ -5,7 +5,7 @@ if(isset($_POST["submited"])){
     $mobile = $_POST["num"];
     $password = $_POST["pass"];
 
-    $mycon = mysqli_connect("localhost","root","","ecom");
+    $mycon = mysqli_connect("sql12.freesqldatabase.com","sql12774871","BAADiPVYle","ecom");
     if(!$mycon){
         die("Connection failed: ".mysqli_connect_error());
     }

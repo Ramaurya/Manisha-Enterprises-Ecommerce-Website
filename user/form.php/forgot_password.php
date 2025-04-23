@@ -5,7 +5,7 @@ if(isset($_POST['submit'])) {
     $mobile = $_POST['mobile'];
     
     // Database connection
-    $conn = mysqli_connect("localhost", "root", "", "ecom");
+    $conn = mysqli_connect("sql12.freesqldatabase.com", "sql12774871", "BAADiPVYle", "ecom");
     
     // Check if mobile number exists
     $query = "SELECT * FROM tbluser WHERE number = ?";

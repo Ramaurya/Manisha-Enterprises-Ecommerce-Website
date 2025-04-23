@@ -1,6 +1,6 @@
 <?php
 // Test database connection
-$con = mysqli_connect("localhost", "root", "", "ecom");
+$con = mysqli_connect("sql12.freesqldatabase.com", "sql12774871", "BAADiPVYle", "ecom");
 
 if (mysqli_connect_errno()) {
     die("MySQL Connection Failed: " . mysqli_connect_error());

@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$con = new mysqli("localhost", "root", "", "ecom");
+$con = new mysqli("sql12.freesqldatabase.com", "sql12774871", "BAADiPVYle", "ecom");
 
 if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);

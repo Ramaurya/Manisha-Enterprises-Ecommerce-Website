@@ -28,7 +28,7 @@
             </div>
 
             <?php
-            $con = new mysqli("localhost", "root", "", "ecom");
+            $con = new mysqli("sql12.freesqldatabase.com", "sql12774871", "BAADiPVYle", "ecom");
             $Record = mysqli_query($con, "SELECT * FROM `tbluser`");
             ?>
 
