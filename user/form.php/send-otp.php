@@ -3,7 +3,7 @@ session_start();
 echo $OTP=$_SESSION['OTP'];
 
 
-$API="e36286b94d3c219f414e0427e5f73aa5"; // ENTER YOUR VALID API KEY HERE
+$API="0937fb5864ed06ffb59ae5f9b5ed67a9"; // ENTER YOUR VALID API KEY HERE
 $PHONE=$_SESSION['reset_mobile'];
 $_SESSION['phone']=$PHONE;
 $COUNTRY='91'; // Country Code
