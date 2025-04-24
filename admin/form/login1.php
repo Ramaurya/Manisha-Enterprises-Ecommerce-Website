@@ -1,5 +1,5 @@
 <?php
-    $config = mysqli_connect("sql12.freesqldatabase.com","sql12774871","BAADiPVYle","ecom");
+    $config = mysqli_connect("sql12.freesqldatabase.com","sql12774871","BAADiPVYle","sql12774871");
 
     $A_name = $_POST["username"];
     $A_pass = $_POST["userpassword"];
