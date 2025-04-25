@@ -1,6 +1,6 @@
 <?php
 // Database connection
-$con = mysqli_connect("sql12.freesqldatabase.com", "sql12774871", "BAADiPVYle", "sql12774871");
+$con = mysqli_connect("localhost","root","","ecom");
 
 // Check connection
 if (mysqli_connect_errno()) {

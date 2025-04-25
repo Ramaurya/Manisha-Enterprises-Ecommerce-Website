@@ -15,7 +15,7 @@ if(isset($_POST['change_password'])) {
         $error = "Passwords do not match!";
     } else {
         // Connect to database
-        $conn = mysqli_connect("sql12.freesqldatabase.com", "sql12774871", "BAADiPVYle", "sql12774871");
+        $conn = mysqli_connect("sql108.infinityfree.com", "if0_38829304", " dvIBeeLAGDguR", "if0_38829304_ecom");
         
         if(!$conn) {
             die("Connection failed: " . mysqli_connect_error());

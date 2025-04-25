@@ -1,4 +1,4 @@
 <?php
-    $config = mysqli_connect("sql12.freesqldatabase.com","sql12774871","BAADiPVYle","sql12774871");
+    $config = mysqli_connect("localhost","root","","ecom");
     
 ?>

@@ -29,7 +29,7 @@ if(isset($_POST["submit"])){
     }
 
     // Database connection
-    $mycon = mysqli_connect("sql12.freesqldatabase.com","sql12774871","BAADiPVYle","sql12774871");
+    $mycon = mysqli_connect("sql108.infinityfree.com","if0_38829304"," dvIBeeLAGDguR","if0_38829304_ecom");
     if(!$mycon){
         echo "
             <script>
